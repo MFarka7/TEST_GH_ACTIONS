@@ -28,7 +28,7 @@ jobs:
         with:
           ref: ${{ github.event.inputs.branch || 'main' }}
 
-      - name: Install Node.js
+      - name: Install Node.js 24
         uses: actions/setup-node@v4
         with:
           node-version: '24'
