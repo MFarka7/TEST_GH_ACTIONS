@@ -38,3 +38,26 @@ jobs:
           EMAIL=$(jq -r '.values[] | select(.key=="currentEmail") | .value' vars_output.json)
           echo "USER_EMAIL=$EMAIL" >> $GITHUB_ENV
           echo "Captured Email: $EMAIL"
+
+      - name: Verify User in Database
+        env:
+          # This pulls the secret from GitHub's vault into the runner
+          DB_URL: ${{ secrets.DB_CONNECTION_STRING }}
+        run: |
+          # We can use a simple node one-liner or a small script to query
+          # For this example, let's assume a PostgreSQL database
+          node -e "
+          const { Client } = require('pg');
+          const client = new Client({ connectionString: process.env.DB_URL });
+          client.connect();
+          client.query('SELECT * FROM public."users" WHERE email = $1', [process.env.EMAIL], (err, res) => {
+            if (err) { console.error(err); process.exit(1); }
+            if (res.rows.length > 0) {
+              console.log('SUCCESS: User found in database!');
+              process.exit(0);
+            } else {
+              console.error('FAILURE: User not found in database.');
+              process.exit(1);
+            }
+          });
+          "
