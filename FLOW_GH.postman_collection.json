@@ -32,7 +32,7 @@
               "pm.collectionVariables.set(\"apiKey\", jsonData.data.apiKey);",
               "",
               "pm.test(\"Email in response matches email sent\", function () {",
-              "    const sentEmail = pm.collectionVariables.get(\"currentEmail\");",
+              "    const sentEmail = pm.environment.get(\"currentEmail\");",
               "    pm.expect(jsonData.data.email).to.eql(sentEmail.toLowerCase());",
               "});"
             ],
@@ -47,7 +47,7 @@
             "exec": [
               "// Generate and store the email before sending\r",
               "const email = pm.variables.replaceIn(\"{{$randomEmail}}\");\r",
-              "pm.collectionVariables.set(\"currentEmail\", email);"
+              "pm.environment.set(\"currentEmail\", email);"
             ],
             "type": "text/javascript",
             "packages": {},
