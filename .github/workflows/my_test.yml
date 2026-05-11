@@ -2,10 +2,10 @@ name: Daily API test
 
 # Controls when the workflow will run
 on:
-schedule:
+    schedule:
     - cron: '0 7 * * *'  # Runs at 7:00 AM UTC
-  workflow_dispatch:      # Allows manual testing with a button click
-    inputs:
+    workflow_dispatch:      # Allows manual testing with a button click
+        inputs:
           branch:
             description: 'Branch to run the tests on'
             required: true
