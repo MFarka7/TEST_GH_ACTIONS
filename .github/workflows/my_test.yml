@@ -35,7 +35,6 @@ jobs:
 
       - name: Extract Email from Collection Vars
         run: |
-          # The structure for collection variables is slightly different in the JSON export
           EMAIL=$(jq -r '.values[] | select(.key=="currentEmail") | .value' vars_output.json)
           echo "USER_EMAIL=$EMAIL" >> $GITHUB_ENV
           echo "Captured Email: $EMAIL"
