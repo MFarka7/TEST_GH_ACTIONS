@@ -16,7 +16,7 @@ async function verify() {
     console.log(`Checking for user: ${email}`);
     
     // Using parameterized query to prevent SQL injection and syntax errors
-    const res = await client.query('SELECT * FROM users WHERE email = $1', [email]);
+    const res = await client.query('SELECT * FROM public."user" WHERE email = $1', [email]);
 
     if (res.rows.length > 0) {
       console.log('✅ SUCCESS: User found in database.');
