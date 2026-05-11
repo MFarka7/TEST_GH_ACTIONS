@@ -1,34 +1,29 @@
 name: Daily API test
 
-# Controls when the workflow will run
 on:
-    schedule:
-    - cron: '0 7 * * *'  # Runs at 7:00 AM UTC
-    workflow_dispatch:      # Allows manual testing with a button click
-        inputs:
-          branch:
-            description: 'Branch to run the tests on'
-            required: true
-            default: 'main'
+  schedule:
+    - cron: '0 7 * * *'
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to run the tests on'
+        required: true
+        default: 'main'
 
 env:
+  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.inputs.branch || 'main' }}
 
-      - name: Install Node.js 24
+      - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '24'
