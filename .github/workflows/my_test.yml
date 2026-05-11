@@ -30,7 +30,7 @@ jobs:
 
       - name: Run Postman Collection
         run: |
-         newman run FLOW_GH.postman_collection.json\
+         newman run FLOW_GH.postman_collection.json \
          --export-collection-variables vars_output.json
 
       - name: Extract Email from Collection Vars
