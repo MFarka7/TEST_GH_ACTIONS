@@ -7,7 +7,7 @@ on:
     inputs:
       branch:
         description: 'Branch to run the tests on'
-        required: true
+        required: false
         default: 'main'
 
 
