@@ -1,15 +1,14 @@
 name: Daily API test
 
 on:
-  schedule:
-    - cron: '*/15 * * * *'
   workflow_dispatch:
     inputs:
       branch:
         description: 'Branch to run the tests on'
         required: false
         default: 'main'
-
+  schedule:
+    - cron: '*/15 * * * *'
 
 jobs:
   build:
